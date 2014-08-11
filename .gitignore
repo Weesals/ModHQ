@@ -1,0 +1,6 @@
+*.db
+RTS4.ModHQ/bin/
+RTS4.ModHQ/obj/
+*.suo
+/RTS4.ModHQ/Images/Icons/*.psd
+/RTS4.ModHQ/Images/*.psd

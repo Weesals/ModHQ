@@ -1,0 +1,143 @@
+﻿<UserControl x:Class="RTS4.ModHQ.Pages.UIEditor"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:controls="clr-namespace:RTS4.ModHQ.Controls"
+             mc:Ignorable="d" 
+             x:Name="UIEditorRoot"
+             d:DesignHeight="300" d:DesignWidth="300">
+    <Grid x:Name="LayoutRoot" Background="#88000000" DataContext="{Binding ViewModel, ElementName=UIEditorRoot}">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="auto" />
+        </Grid.ColumnDefinitions>
+
+        <Grid Grid.Column="0" Background="#44ffffff">
+            <Grid HorizontalAlignment="Center" VerticalAlignment="Center">
+                <Border BorderThickness="2" BorderBrush="#22000000" Margin="-4" CornerRadius="16" />
+                <Border BorderThickness="2" BorderBrush="#88000000" Margin="-2" CornerRadius="14" />
+                <Border BorderThickness="10" BorderBrush="White" CornerRadius="5" Background="Black">
+                    <Viewbox Stretch="Uniform" HorizontalAlignment="Center" VerticalAlignment="Center">
+                        <Grid Width="{Binding Resolution.Width}" Height="{Binding Resolution.Height}">
+                            <Grid x:Name="ViewsContainer" Background="Transparent" />
+                            <Grid x:Name="ControlsContainer" />
+                        </Grid>
+                    </Viewbox>
+                </Border>
+            </Grid>
+        </Grid>
+
+        <Expander x:Name="SidePanel" Grid.Column="1" Background="#aaeeeeee" IsExpanded="True" BorderThickness="1 0 0 0">
+            <Expander.Style>
+                <Style TargetType="Expander">
+                    <Setter Property="ClipToBounds" Value="False" />
+                    <Setter Property="Template">
+                        <Setter.Value>
+                            <ControlTemplate TargetType="Expander">
+                                <Border Background="{TemplateBinding Background}" BorderThickness="{TemplateBinding BorderThickness}" BorderBrush="{TemplateBinding BorderBrush}">
+                                    <VisualStateManager.VisualStateGroups>
+                                        <VisualStateGroup x:Name="CheckStates">
+                                            <VisualState x:Name="Expanded">
+                                                <Storyboard>
+                                                    <DoubleAnimation Storyboard.TargetName="PanelGrid" Storyboard.TargetProperty="Width"
+                                                                            From="0" To="300" Duration="0:0:0.3" />
+                                                </Storyboard>
+                                            </VisualState>
+                                            <VisualState x:Name="Collapsed">
+                                                <Storyboard>
+                                                    <DoubleAnimation Storyboard.TargetName="PanelGrid" Storyboard.TargetProperty="Width"
+                                                                            From="300" To="0" Duration="0:0:0.3" />
+                                                </Storyboard>
+                                            </VisualState>
+                                            <VisualState x:Name="Indeterminate" />
+                                        </VisualStateGroup>
+                                    </VisualStateManager.VisualStateGroups>
+                                    <Grid ClipToBounds="False">
+                                        <Rectangle Width="10" Margin="-10, 0, 0, 0" HorizontalAlignment="Left" Opacity="0.5" IsHitTestVisible="False">
+                                            <Rectangle.Fill>
+                                                <LinearGradientBrush StartPoint="0 0" EndPoint="1 0">
+                                                    <GradientStop Color="#00000000" Offset="0.0" />
+                                                    <GradientStop Color="#66000000" Offset="0.6" />
+                                                    <GradientStop Color="#ff000000" Offset="1" />
+                                                </LinearGradientBrush>
+                                            </Rectangle.Fill>
+                                        </Rectangle>
+                                        <Border Background="#eeeeee" BorderThickness="1 0 0 1" BorderBrush="#55000000"
+                                                    CornerRadius="0 0 0 2"
+                                                    Height="20" Width="20" Margin="-20, 0, 0, 0"
+                                                    HorizontalAlignment="Left" VerticalAlignment="Top">
+                                            <!--<Border.RenderTransform>
+                                                    <RotateTransform Angle="90" CenterX="50" CenterY="50" />
+                                                </Border.RenderTransform>-->
+                                            <ToggleButton Command="{Binding ToggleConfiguration, ElementName=Root}"
+                                                              BorderThickness="0"
+                                                              Padding="0"
+                                                              HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch"
+                                                              IsChecked="{Binding IsExpanded, RelativeSource={RelativeSource TemplatedParent}, Mode=TwoWay}">
+                                                <Border Background="#33000000" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+                                                    <Polygon Points="0 0.5, 1, 0, 1, 1" Fill="White" Width="8" Height="10" Stretch="Fill" />
+                                                </Border>
+                                            </ToggleButton>
+                                        </Border>
+                                        <Grid x:Name="PanelGrid" Width="0">
+                                            <ContentPresenter x:Name="PanelContent" Content="{TemplateBinding Content}" />
+                                        </Grid>
+                                    </Grid>
+                                </Border>
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>
+                </Style>
+            </Expander.Style>
+            <Grid Width="300">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto" />
+                    <RowDefinition Height="*" MaxHeight="500" />
+                    <RowDefinition Height="auto" />
+                </Grid.RowDefinitions>
+                <StackPanel Grid.Row="0">
+                    <TextBlock Text="Resolution" Foreground="White" Margin="0 10 0 0" />
+                    <ComboBox ItemsSource="{Binding Resolutions}" SelectedItem="{Binding Resolution}" Margin="10 0 0 0" />
+                    <TextBlock Text="File" Foreground="White" Margin="0 10 0 0" />
+                    <ComboBox ItemsSource="{Binding UIFiles}" SelectedItem="{Binding UIFile}" Margin="10 0 0 0" />
+                    <!--BorderThickness="0" Background="Transparent" -->
+                    <TextBlock Text="Visibility" Foreground="White" Margin="0 10 0 0" />
+                </StackPanel>
+                <controls:ExtendedTreeView ItemsSource="{Binding TopGadgets}" SelectedItem_="{Binding SelectedGadget, Mode=TwoWay}" BorderThickness="0" Margin="10 0 0 0" Grid.Row="1">
+                    <TreeView.ItemTemplate>
+                        <HierarchicalDataTemplate ItemsSource="{Binding Children}">
+                            <StackPanel Orientation="Horizontal">
+                                <CheckBox IsChecked="{Binding Visible}" />
+                                <TextBlock Text="{Binding Gadget.Name}" />
+                            </StackPanel>
+                        </HierarchicalDataTemplate>
+                    </TreeView.ItemTemplate>
+                </controls:ExtendedTreeView>
+                <GroupBox Header="Selected" DataContext="{Binding SelectedGadget}" Grid.Row="2">
+                    <StackPanel>
+                        <TextBlock>
+                            <Run Text="Name " FontStyle="Italic" />
+                            <Run Text="{Binding Gadget.Name}" />
+                        </TextBlock>
+                        <TextBlock TextWrapping="Wrap">
+                            <Run Text="Command " FontStyle="Italic" />
+                            <Run Text="{Binding Gadget.Command}" />
+                        </TextBlock>
+                        <ListBox ItemsSource="{Binding Gadget.Values}">
+                            <ListBox.ItemTemplate>
+                                <DataTemplate>
+                                    <TextBlock TextWrapping="Wrap">
+                                        <Run Text="{Binding Key, Mode=OneWay}" FontStyle="Italic" />
+                                        <Run Text=" = " FontStyle="Italic" />
+                                        <Run Text="{Binding Value, Mode=OneWay}" />
+                                    </TextBlock>
+                                </DataTemplate>
+                            </ListBox.ItemTemplate>
+                        </ListBox>
+                    </StackPanel>
+                </GroupBox>
+            </Grid>
+        </Expander>
+    </Grid>
+</UserControl>

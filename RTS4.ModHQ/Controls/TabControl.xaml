@@ -1,0 +1,86 @@
+﻿<TabControl x:Class="RTS4.ModHQ.Controls.TabControl"
+            xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+            xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+            xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+            xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+            xmlns:controls="clr-namespace:RTS4.ModHQ.Controls"
+            mc:Ignorable="d"
+            Background="Transparent"
+            x:Name="Root"
+            d:DesignHeight="300" d:DesignWidth="300">
+    <TabControl.Style>
+        <Style TargetType="{x:Type TabControl}">
+            <Setter Property="controls:TabControl.TabBackgroundBrush" Value="{StaticResource TitleBackground}" />
+            <Setter Property="controls:TabControl.TabInactiveBrush" Value="{StaticResource TitleMidground}" />
+            <Setter Property="controls:TabControl.TabActiveBrush" Value="{StaticResource TitleForeground}" />
+            <Setter Property="controls:TabControl.TabHoverBrush" Value="{StaticResource TitleSelected}" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type TabControl}">
+                        <Grid UseLayoutRounding="True">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="auto"/>
+                                <RowDefinition Height="auto"/>
+                                <RowDefinition Height="*"/>
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="auto" />
+                                <ColumnDefinition Width="auto" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+                            <Border x:Name="LeftContent" Background="{Binding TabBackgroundBrush, Source={StaticResource Self}}" UseLayoutRounding="True" Grid.Row="0" Grid.Column="0">
+                                <ContentControl Content="{Binding LeftContent, Source={StaticResource Self}}" />
+                            </Border>
+                            <TabPanel x:Name="HeaderPanel" Grid.Row="0" Grid.Column="1"
+                                    Panel.ZIndex="1" Margin="0,0,0,0" IsItemsHost="True"
+                                    KeyboardNavigation.TabIndex="1" Background="Transparent" />
+                            <Border x:Name="RightContent" Background="{Binding TabBackgroundBrush, Source={StaticResource Self}}" UseLayoutRounding="True" Grid.Row="0" Grid.Column="2">
+                                <ContentControl Content="{Binding RightContent, Source={StaticResource Self}}" />
+                            </Border>
+                            <Border x:Name="Content" Grid.Row="2" Grid.ColumnSpan="3">
+                                <ContentPresenter ContentSource="SelectedContent" />
+                            </Border>
+                        </Grid>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="TabStripPlacement" Value="Left">
+                                <Setter TargetName="HeaderPanel" Property="Grid.Row" Value="1" />
+                                <Setter TargetName="HeaderPanel" Property="Grid.Column" Value="0" />
+                                <Setter TargetName="RightContent" Property="Grid.Row" Value="2" />
+                                <Setter TargetName="RightContent" Property="Grid.Column" Value="0" />
+                                <Setter TargetName="Content" Property="Grid.Row" Value="0" />
+                                <Setter TargetName="Content" Property="Grid.RowSpan" Value="3" />
+                                <Setter TargetName="Content" Property="Grid.Column" Value="2" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Style.Resources>
+                <Style x:Key="{x:Type TabItem}" TargetType="{x:Type TabItem}">
+                    <Setter Property="Padding" Value="0" />
+                    <Setter Property="Template">
+                        <Setter.Value>
+                            <ControlTemplate TargetType="TabItem">
+                                <Border x:Name="bgBorder" Background="{Binding TabInactiveBrush, Source={StaticResource Self}}" BorderThickness="0" Height="40" UseLayoutRounding="True">
+                                    <TextBlock Text="{TemplateBinding Header}" Style="{StaticResource HeaderText}" Margin="10" VerticalAlignment="Bottom" />
+                                </Border>
+                                <ControlTemplate.Triggers>
+                                    <Trigger Property="IsSelected" Value="True">
+                                        <Setter TargetName="bgBorder" Property="Background" Value="{Binding TabActiveBrush, Source={StaticResource Self}}" />
+                                    </Trigger>
+                                    <MultiTrigger>
+                                        <MultiTrigger.Conditions>
+                                            <Condition Property="IsMouseOver" Value="True" />
+                                            <Condition Property="IsSelected" Value="False" />
+                                        </MultiTrigger.Conditions>
+                                        <Setter TargetName="bgBorder" Property="Background" Value="{Binding TabHoverBrush, Source={StaticResource Self}}" />
+                                    </MultiTrigger>
+                                </ControlTemplate.Triggers>
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>
+                </Style>
+            </Style.Resources>
+        </Style>
+    </TabControl.Style>
+</TabControl>

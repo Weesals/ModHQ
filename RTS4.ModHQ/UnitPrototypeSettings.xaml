@@ -1,0 +1,8 @@
+﻿<Window x:Class="RTS4.ModHQ.UnitPrototypeSettings"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="UnitPrototypeSettings" Height="300" Width="300">
+    <Grid>
+        <Image Source="{Binding Prototype.Icon, Source={StaticResource Self}}" />
+    </Grid>
+</Window>

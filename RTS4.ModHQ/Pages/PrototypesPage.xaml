@@ -1,0 +1,183 @@
+﻿<UserControl x:Class="RTS4.ModHQ.Pages.PrototypesPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      mc:Ignorable="d" 
+      d:DesignHeight="350" d:DesignWidth="650">
+
+    <Grid>
+        <Grid.Resources>
+            <BooleanToVisibilityConverter x:Key="boolToVis" />
+        </Grid.Resources>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <Border MinHeight="38" Grid.Row="0" Grid.ColumnSpan="2">
+            <Button HorizontalAlignment="Stretch" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch" Background="{StaticResource TitleForeground}" BorderThickness="0" Command="{StaticResource OpenCommand}">
+                <Grid x:Name="FileSourceGrid">
+                    <Grid.Resources>
+                        <Storyboard x:Key="FileSourceGridFlash" Storyboard.TargetName="FileSourceGrid">
+                            <DoubleAnimation From="1.0" To="0.3" Duration="0:0:0.4" Storyboard.TargetProperty="Opacity" RepeatBehavior="Forever" AutoReverse="True" />
+                        </Storyboard>
+                    </Grid.Resources>
+                    <TextBlock Style="{StaticResource Text}" HorizontalAlignment="Left" VerticalAlignment="Center" Padding="10 8 10 8" Opacity="0.5">
+                        Source <Run Text="{Binding Overlord.Directory, Mode=OneWay, Source={StaticResource Self}}" Style="{StaticResource DynamicText}"/>
+                    </TextBlock>
+                    <ProgressBar x:Name="LoadBar" IsIndeterminate="False" Background="Transparent" IsHitTestVisible="False" Foreground="#33aabb88" BorderThickness="0" Margin="-1" Padding="0" />
+                </Grid>
+            </Button>
+        </Border>
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="auto" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <Border BorderBrush="{StaticResource TitleEdge}" BorderThickness="0 0 0 0" Grid.Row="1" Grid.Column="0">
+                <Grid Width="200" Grid.Column="0" Background="{StaticResource TitleForeground}">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto" />
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+                    <ComboBox Grid.Row="0" SelectedIndex="0"
+                        Background="Transparent"
+                        ItemsSource="{Binding Prototypes.PrototypeFilters, Source={StaticResource Self}}"
+                        SelectedItem="{Binding Prototypes.SelectedFilter, Source={StaticResource Self}}">
+                        <ComboBox.ItemTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding Name}" />
+                            </DataTemplate>
+                        </ComboBox.ItemTemplate>
+                    </ComboBox>
+                    <ListBox x:Name="ItemsList" ItemsSource="{Binding Prototypes.FilteredPrototypes, Source={StaticResource Self}}"
+                        ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                        BorderThickness="0" Grid.Row="1" Padding="0" Margin="0" Background="Transparent">
+                        <ListBox.ItemTemplate>
+                            <DataTemplate>
+                                <Grid Margin="-4 -1">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="auto" />
+                                        <ColumnDefinition Width="*" />
+                                    </Grid.ColumnDefinitions>
+                                    <Border Background="#44888888" Grid.Column="0">
+                                        <Image Source="{Binding Icon}" Width="30" Height="30" />
+                                    </Border>
+                                    <TextBlock Text="{Binding Name}" Height="20" Margin="10 0 0 0" Grid.Column="1" />
+                                </Grid>
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                    </ListBox>
+                </Grid>
+            </Border>
+            <ScrollViewer VerticalScrollBarVisibility="Auto" Grid.Column="1" Grid.Row="1" Background="White">
+                <Grid DataContext="{Binding SelectedItem, ElementName=ItemsList}">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto" />
+                        <RowDefinition Height="auto" />
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+                    <!--<Grid.Background>
+                                    <ImageBrush ImageSource="Images/Background.png" Opacity="0.05" Stretch="UniformToFill" />
+                                </Grid.Background>-->
+                    <Border BorderBrush="{StaticResource TitleEdge}" BorderThickness="0 0 0 0" Grid.Row="0">
+                        <Grid Background="{StaticResource TitleForeground}">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="auto" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+                            <Button x:Name="ImageButton" Grid.Column="0" Padding="0" Margin="10 10 0 0" BorderThickness="0" Command="{StaticResource PrototypeImageCommand}" CommandParameter="{Binding}">
+                                <Image Source="{Binding Icon}" Width="64" Height="64" />
+                                <Button.Style>
+                                    <Style TargetType="{x:Type Button}">
+                                        <Style.Triggers>
+                                            <Trigger Property="IsMouseOver" Value="True">
+                                                <Setter Property="Opacity" Value="0.5" />
+                                            </Trigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </Button.Style>
+                            </Button>
+                            <Grid Grid.Column="1" Margin="10 10 10 0">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="auto" />
+                                    <ColumnDefinition Width="130" />
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="auto" />
+                                    <ColumnDefinition Width="130" />
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition />
+                                    <RowDefinition />
+                                    <RowDefinition />
+                                </Grid.RowDefinitions>
+                                <Grid.Resources>
+                                    <Style x:Key="DataLabel" TargetType="Label">
+                                        <Setter Property="VerticalAlignment" Value="Center" />
+                                        <Setter Property="HorizontalAlignment" Value="Right" />
+                                        <Setter Property="Margin" Value="0" />
+                                        <Setter Property="Padding" Value="0" />
+                                    </Style>
+                                </Grid.Resources>
+                                <!-- first column -->
+                                <Label Content="Id: " Style="{StaticResource DataLabel}" Grid.Row="0" Grid.Column="0" />
+                                <TextBox IsEnabled="False" Text="{Binding Id, Mode=OneWay}" Grid.Row="0" Grid.Column="1" />
+                                <Label Content="Hit Points: " Style="{StaticResource DataLabel}" Grid.Row="1" Grid.Column="0" />
+                                <StackPanel Orientation="Horizontal" Grid.Row="1" Grid.Column="1">
+                                    <TextBox Text="{Binding InitialHitPoints, Mode=TwoWay}" MinWidth="30" />
+                                    <TextBlock Text=" / " />
+                                    <TextBox Text="{Binding MaximumHitPoints, Mode=TwoWay}" MinWidth="30" />
+                                </StackPanel>
+                                <!-- second column -->
+                                <Label Content="Name: " Style="{StaticResource DataLabel}" Grid.Row="0" Grid.Column="3" />
+                                <TextBox IsEnabled="False" Text="{Binding Name, Mode=OneWay}" Grid.Row="0" Grid.Column="4" />
+                                <Label Content="LOS: " Style="{StaticResource DataLabel}" Grid.Row="1" Grid.Column="3" />
+                                <TextBox Text="{Binding LOS, Mode=TwoWay}" Grid.Row="1" Grid.Column="4" />
+                            </Grid>
+                        </Grid>
+                    </Border>
+                    <Grid Background="White" Grid.Row="1">
+                        <ItemsControl ItemsSource="{Binding Actions}" Margin="15">
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate>
+                                    <Border Margin="2" Width="100" Height="100" Background="#ffEEEEEE">
+                                        <StackPanel>
+                                            <TextBlock Text="{Binding Name, Mode=OneWay}" TextAlignment="Center" Background="#ffCCCCCC" Foreground="White" />
+                                            <ItemsControl ItemsSource="{Binding Properties, Mode=OneWay}" TextBlock.FontSize="8" Grid.IsSharedSizeScope="True">
+                                                <ItemsControl.ItemTemplate>
+                                                    <DataTemplate>
+                                                        <Grid Width="100">
+                                                            <Grid.ColumnDefinitions>
+                                                                <ColumnDefinition Width="*" />
+                                                                <ColumnDefinition Width="auto" MinWidth="34" MaxWidth="50" SharedSizeGroup="Value" />
+                                                            </Grid.ColumnDefinitions>
+                                                            <TextBlock Text="{Binding Name, Mode=OneWay}" Grid.Column="0" Margin="2 0 4 0" />
+                                                            <TextBlock Text="{Binding Value, Mode=OneWay}" Grid.Column="1" />
+                                                        </Grid>
+                                                    </DataTemplate>
+                                                </ItemsControl.ItemTemplate>
+                                            </ItemsControl>
+                                        </StackPanel>
+                                    </Border>
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                            <ItemsControl.ItemsPanel>
+                                <ItemsPanelTemplate>
+                                    <WrapPanel>
+                                    </WrapPanel>
+                                </ItemsPanelTemplate>
+                            </ItemsControl.ItemsPanel>
+                        </ItemsControl>
+                    </Grid>
+                    <!--<ItemsControl ItemsSource="{Binding Flags}" Background="White" Grid.Row="2" Padding="15 0 10 0">
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding Name}" />
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>-->
+                </Grid>
+            </ScrollViewer>
+        </Grid>
+    </Grid>
+</UserControl>

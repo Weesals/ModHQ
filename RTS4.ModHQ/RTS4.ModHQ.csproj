@@ -1,0 +1,258 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{1FC5ECC6-E5DE-4B09-A0B8-A2688800EC41}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>RTS4.ModHQ</RootNamespace>
+    <AssemblyName>RTS4.ModHQ</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <WarningLevel>4</WarningLevel>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>Grannary.ico</ApplicationIcon>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Xaml">
+      <RequiredTargetFramework>4.0</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="WindowsBase" />
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
+  </ItemGroup>
+  <ItemGroup>
+    <ApplicationDefinition Include="App.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </ApplicationDefinition>
+    <Compile Include="AOMDirectory.cs" />
+    <Compile Include="Controls\ExstendedTreeView.cs" />
+    <Compile Include="Ext\RTS4.Common\Math\XMatrix.cs" />
+    <Compile Include="Ext\RTS4.Common\Math\XPoint2.cs" />
+    <Compile Include="Ext\RTS4.Common\Math\XPoint3.cs" />
+    <Compile Include="Ext\RTS4.Common\Math\XReal.cs" />
+    <Compile Include="Ext\RTS4.Common\Math\XRectangle.cs" />
+    <Compile Include="Ext\RTS4.Common\Math\XRectangleF.cs" />
+    <Compile Include="Ext\RTS4.Common\Math\XVector2.cs" />
+    <Compile Include="Ext\RTS4.Common\Math\XVector3.cs" />
+    <Compile Include="Ext\RTS4.Common\XColor.cs" />
+    <Compile Include="Ext\RTS4.Data\BARFile.cs" />
+    <Compile Include="Ext\RTS4.Data\BTXImage.cs" />
+    <Compile Include="Ext\RTS4.Data\DDTImage.cs" />
+    <Compile Include="Ext\RTS4.Data\Lists\FlagRegistry.cs" />
+    <Compile Include="Ext\RTS4.Data\Lists\UnitFlag.cs" />
+    <Compile Include="Ext\RTS4.Data\Prototype.cs" />
+    <Compile Include="Ext\RTS4.Data\PrototypeList.cs" />
+    <Compile Include="Ext\RTS4.Data\Prototypes\Units\Actions\AAreaAttack.cs" />
+    <Compile Include="Ext\RTS4.Data\Prototypes\Units\Actions\AAutoGather.cs" />
+    <Compile Include="Ext\RTS4.Data\Prototypes\Units\Actions\ABoost.cs" />
+    <Compile Include="Ext\RTS4.Data\Prototypes\Units\Actions\ABuild.cs" />
+    <Compile Include="Ext\RTS4.Data\Prototypes\Units\Actions\AChargedRangedAttack.cs" />
+    <Compile Include="Ext\RTS4.Data\Prototypes\Units\Actions\ADropOff.cs" />
+    <Compile Include="Ext\RTS4.Data\Prototypes\Units\Actions\AEnter.cs" />
+    <Compile Include="Ext\RTS4.Data\Prototypes\Units\Actions\AFreezeAttack.cs" />
+    <Compile Include="Ext\RTS4.Data\Prototypes\Units\Actions\AGather.cs" />
+    <Compile Include="Ext\RTS4.Data\Prototypes\Units\Actions\AGore.cs" />
+    <Compile Include="Ext\RTS4.Data\Prototypes\Units\Actions\AHandAttack.cs" />
+    <Compile Include="Ext\RTS4.Data\Prototypes\Units\Actions\AHeal.cs" />
+    <Compile Include="Ext\RTS4.Data\Prototypes\Units\Actions\AJumpAttack.cs" />
+    <Compile Include="Ext\RTS4.Data\Prototypes\Units\Actions\ALight.cs" />
+    <Compile Include="Ext\RTS4.Data\Prototypes\Units\Actions\AMove.cs" />
+    <Compile Include="Ext\RTS4.Data\Prototypes\Units\Actions\AMoveByGroup.cs" />
+    <Compile Include="Ext\RTS4.Data\Prototypes\Units\Actions\APickUp.cs" />
+    <Compile Include="Ext\RTS4.Data\Prototypes\Units\Actions\ARangedAttack.cs" />
+    <Compile Include="Ext\RTS4.Data\Prototypes\Units\Actions\ARegenerate.cs" />
+    <Compile Include="Ext\RTS4.Data\Prototypes\Units\Actions\ARepair.cs" />
+    <Compile Include="Ext\RTS4.Data\Prototypes\Units\Actions\AThrow.cs" />
+    <Compile Include="Ext\RTS4.Data\Prototypes\Units\Actions\AWander.cs" />
+    <Compile Include="Ext\RTS4.Data\Prototypes\Units\Actions\AWhirlwindAttack.cs" />
+    <Compile Include="Ext\RTS4.Data\Prototypes\Units\Actions\Base\AAttackBase.cs" />
+    <Compile Include="Ext\RTS4.Data\Prototypes\Units\Actions\Base\UnitAction.cs" />
+    <Compile Include="Ext\RTS4.Data\Prototypes\Units\Movement.cs" />
+    <Compile Include="Ext\RTS4.Data\Prototypes\Units\UnitPrototype.cs" />
+    <Compile Include="Ext\RTS4.Data\Resources\DamageBonus.cs" />
+    <Compile Include="Ext\RTS4.Data\Resources\DamageType.cs" />
+    <Compile Include="Ext\RTS4.Data\Resources\HitPoints.cs" />
+    <Compile Include="Ext\RTS4.Data\Resources\ResourceRegistry.cs" />
+    <Compile Include="Ext\RTS4.Data\Resources\ResourceType.cs" />
+    <Compile Include="Ext\RTS4.Data\Resources\UnitRate.cs" />
+    <Compile Include="Ext\RTS4.Data\RTS3Image.cs" />
+    <Compile Include="Ext\RTS4.Data\Serialization\Attributes\SerializationName.cs" />
+    <Compile Include="Ext\RTS4.Data\Serialization\Attributes\SerializationSerializer.cs" />
+    <Compile Include="Ext\RTS4.Data\Serialization\Converters\FlagConverter.cs" />
+    <Compile Include="Ext\RTS4.Data\Serialization\Converters\ISerialConverter.cs" />
+    <Compile Include="Ext\RTS4.Data\Serialization\Converters\StringSplitter.cs" />
+    <Compile Include="Ext\RTS4.Data\Serialization\ILogService.cs" />
+    <Compile Include="Ext\RTS4.Data\Serialization\SerializationContext.cs" />
+    <Compile Include="Ext\RTS4.Data\Serialization\Serializers\ActionSerializer.cs" />
+    <Compile Include="Ext\RTS4.Data\Serialization\Serializers\AGatherSerializer.cs" />
+    <Compile Include="Ext\RTS4.Data\Serialization\Serializers\PrototypeSerializer.cs" />
+    <Compile Include="Ext\RTS4.Data\Serialization\Serializers\ProtoXML.cs" />
+    <Compile Include="Ext\RTS4.Data\Serialization\Serializers\TypeSerializer.cs" />
+    <Compile Include="Ext\RTS4.Data\Utility\DelegateCommand.cs" />
+    <Compile Include="Ext\RTS4.Data\Utility\PrimitiveConverter.cs" />
+    <Compile Include="Ext\RTS4.Data\Utility\Registry.cs" />
+    <Compile Include="Ext\RTS4.Data\Utility\Serializer.cs" />
+    <Compile Include="Ext\RTS4.Data\Utility\XElementExt.cs" />
+    <Compile Include="Ext\RTS4.Data\XMBFile.cs" />
+    <Compile Include="Pages\UIEditor.xaml.cs">
+      <DependentUpon>UIEditor.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UndoManager.cs" />
+    <Compile Include="Utility\IEnumerableEx.cs" />
+    <Compile Include="Controls\ResizeController.cs" />
+    <Compile Include="Controls\TabControl.xaml.cs">
+      <DependentUpon>TabControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\VirtualizingWrapPanel.cs" />
+    <Compile Include="DDSToBMP.cs" />
+    <Compile Include="Pages\DataFiles.xaml.cs">
+      <DependentUpon>DataFiles.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\PrototypesPage.xaml.cs">
+      <DependentUpon>PrototypesPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Gadget.cs" />
+    <Compile Include="UI\GadgetSerializer.cs" />
+    <Compile Include="UI\Layout.cs" />
+    <Compile Include="UI\TextureRegistry.cs" />
+    <Compile Include="UI\Views\GadgetView.cs" />
+    <Compile Include="UI\Views\WindowSpace.cs" />
+    <Compile Include="UI\XmlEx.cs" />
+    <Compile Include="UnitPrototypeSettings.xaml.cs">
+      <DependentUpon>UnitPrototypeSettings.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Utility\DwmDropShadow.cs" />
+    <Compile Include="Utility\IconHelper.cs" />
+    <Compile Include="Utility\PropertyModel.cs" />
+    <Compile Include="ViewModels\ActionViewModel.cs" />
+    <Compile Include="ViewModels\BARsViewModel.cs" />
+    <Compile Include="ViewModels\BARViewModel.cs" />
+    <Compile Include="ViewModels\Overlord.cs" />
+    <Compile Include="ViewModels\PrototypesViewModel.cs" />
+    <Compile Include="ViewModels\PrototypeViewModel.cs" />
+    <Page Include="ComboBoxStyle.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\TabControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="MainWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Compile Include="App.xaml.cs">
+      <DependentUpon>App.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="MainWindow.xaml.cs">
+      <DependentUpon>MainWindow.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Page Include="Pages\DataFiles.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\PrototypesPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\UIEditor.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UnitPrototypeSettings.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Properties\AssemblyInfo.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <AppDesigner Include="Properties\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Background.png" />
+    <Resource Include="Images\Icons\Close.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Icons\Folder80.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Images\Icons\XML80.png" />
+    <Resource Include="Images\Icons\TXT80.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Grannary.ico" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

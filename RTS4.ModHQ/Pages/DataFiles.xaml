@@ -1,0 +1,80 @@
+﻿<UserControl x:Class="RTS4.ModHQ.Pages.DataFiles"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:controls="clr-namespace:RTS4.ModHQ.Controls"
+             x:Name="DataFilesRoot"
+             mc:Ignorable="d" 
+             d:DesignHeight="300" d:DesignWidth="300">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <Border Grid.Row="0" Height="20" Background="{StaticResource TitleForeground}" />
+        <TabControl TabStripPlacement="Left" Grid.Row="1"
+                        controls:TabControl.TabActiveBrush="White"
+                        controls:TabControl.TabInactiveBrush="{StaticResource TitleForeground}"
+                        controls:TabControl.TabBackgroundBrush="{StaticResource TitleForeground}"
+                        ItemsSource="{Binding BARFiles.Files, ElementName=DataFilesRoot}">
+            <TabControl.ItemTemplate>
+                <DataTemplate>
+                    <TextBlock Text="{Binding Name}" />
+                </DataTemplate>
+            </TabControl.ItemTemplate>
+            <TabControl.ContentTemplate>
+                <DataTemplate>
+                    <Grid Background="White">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*" />
+                            <RowDefinition Height="auto" />
+                        </Grid.RowDefinitions>
+                        <ListBox x:Name="ItemsList" Grid.Row="0" ItemsSource="{Binding Root.Items}" ScrollViewer.HorizontalScrollBarVisibility="Disabled" SelectionMode="Extended" BorderThickness="0" Margin="30 0 0 0" PreviewMouseDown="ListboxClicked">
+                            <ListBox.ItemContainerStyle>
+                                <Style TargetType="{x:Type ListBoxItem}" BasedOn="{StaticResource {x:Type ListBoxItem}}">
+                                    <EventSetter Event="MouseDoubleClick" Handler="OpenItem"/>
+                                </Style>
+                            </ListBox.ItemContainerStyle>
+                            <ListBox.ItemsPanel>
+                                <ItemsPanelTemplate>
+                                    <controls:VirtualizingWrapPanel ItemHeight="135" ItemWidth="135" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+                                    </controls:VirtualizingWrapPanel>
+                                </ItemsPanelTemplate>
+                            </ListBox.ItemsPanel>
+                            <ListBox.ItemTemplate>
+                                <DataTemplate>
+                                    <Grid Width="120" Height="120" Margin="5" Background="Transparent">
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="auto" />
+                                            <RowDefinition Height="*" />
+                                        </Grid.RowDefinitions>
+                                        <Border Width="130" Height="80" VerticalAlignment="Top" HorizontalAlignment="Center" Grid.Row="0">
+                                            <Image Source="{Binding Icon}" Stretch="Uniform" />
+                                        </Border>
+                                        <TextBlock Text="{Binding Name}" FontSize="14" VerticalAlignment="Top" TextWrapping="Wrap" TextAlignment="Center" Grid.Row="1" />
+                                    </Grid>
+                                </DataTemplate>
+                            </ListBox.ItemTemplate>
+                        </ListBox>
+                        <!--<TreeView x:Name="ItemsList" ItemsSource="{Binding Root.Items}" Margin="10 0 0 0" BorderThickness="0" VirtualizingPanel.IsVirtualizing="True" Grid.Row="0">
+                            <TreeView.ItemTemplate>
+                                <HierarchicalDataTemplate ItemsSource="{Binding Items}">
+                                    <TextBlock Text="{Binding Name}" FontSize="16" />
+                                </HierarchicalDataTemplate>
+                            </TreeView.ItemTemplate>
+                        </TreeView>-->
+                        <Grid Grid.Row="2" Background="#FFDDDDDD" Height="50">
+                            <StackPanel Orientation="Horizontal">
+                                <Button Content="Extract" BorderThickness="0" Width="100" Command="{StaticResource ExtractItem}" CommandParameter="{Binding SelectedItems, ElementName=ItemsList}" />
+                                <Button Content="Convert" BorderThickness="0" Width="100" Command="{StaticResource ConvertItem}" CommandParameter="{Binding SelectedItems, ElementName=ItemsList}" />
+                                <Button Content="Replace" BorderThickness="0" Width="100" Command="{StaticResource ReplaceItem}" CommandParameter="{Binding SelectedItems, ElementName=ItemsList}" />
+                                <Button Content="Add" BorderThickness="0" Width="100" Command="{StaticResource AddItem}" />
+                            </StackPanel>
+                        </Grid>
+                    </Grid>
+                </DataTemplate>
+            </TabControl.ContentTemplate>
+        </TabControl>
+    </Grid>
+</UserControl>
